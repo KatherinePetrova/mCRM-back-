@@ -8,18 +8,15 @@ var table = require('../database/tables');
 var con = require('../database/connection');
 
 var query = new Query(con);
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-
 router.post('/signup', async function(req, res, next) {
 	console.log(req.body);
 	var data = req.body;
 	try {
 		let salt = await bcrypt.genSalt(10);
-		//let hash = await bcrypt.hash(req.body.pass, salt);
 		data.password = await bcrypt.hashSync(data.password, salt);
 		let insert = await query.insert({table: 'user', data: data})
 		res.status(200).send('successfully logged');
