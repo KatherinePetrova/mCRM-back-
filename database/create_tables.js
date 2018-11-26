@@ -6,7 +6,11 @@ var util = require(`util`);
 var con = mysql.createConnection({
 	host: `localhost`,
 	user: `root`,
+<<<<<<< HEAD
 	//password: `mansmans310796`,
+=======
+	//password: `mansmans310796`,
+>>>>>>> asdf
 });
 
 con.query = util.promisify(con.query);
@@ -49,9 +53,12 @@ async function createDatabase(){
 		await con.query(`CREATE TABLE ${table.add_document} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), text VARCHAR(255), deal INT REFERENCES ${table.deal}(id))`);
 		console.log(`${table.add_document} table created`);
 
+<<<<<<< HEAD
+=======
 		await con.query(`CREATE TABLE ${table.config} (value VARCHAR(255))`);
 		console.log(`${table.config} table created`);
 
+>>>>>>> asdf
 		for(key in table){
 			await con.query(`ALTER TABLE ${table[key]} CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci`);
 			console.log(`${key} table converted`);
