@@ -26,7 +26,9 @@ router.post('/api/insert/:table', async function(req, res){
 	var table = req.params.table;
 	try{
 		var insert = await query.insert({table: table, data: data});
-		res.send();
+		var select = await query.select({table: table, where: {id: insert.insertId}});
+		select = select[0];
+		res.send(select);
 	} catch(e){
 		res.status(500).send();
 		throw new Error(e);
