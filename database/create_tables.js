@@ -6,11 +6,7 @@ var util = require(`util`);
 var con = mysql.createConnection({
 	host: `localhost`,
 	user: `root`,
-<<<<<<< HEAD
 	//password: `mansmans310796`,
-=======
-	//password: `mansmans310796`,
->>>>>>> asdf
 });
 
 con.query = util.promisify(con.query);
