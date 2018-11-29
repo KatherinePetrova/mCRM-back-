@@ -14,7 +14,8 @@ router.use(function(req, res, next) {
 });
 
 router.post('/', function(req, res){
-	res.send('work');
+	console.log('work');
+	res.send();
 });
 
 router.post('/api/tables', function(req, res){
