@@ -43,7 +43,7 @@ async function createDatabase(){
 		await con.query(`CREATE TABLE ${table.add_user} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), text VARCHAR(255), user INT REFERENCES ${table.user}(id))`);
 		console.log(`${table.add_user} table created`);
 
-		await con.query(`CREATE TABLE ${table.deal} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), customer INT REFERENCES ${table.customer}(id), executor INT REFERENCES ${table.executor}(id), responsible INT REFERENCES ${table.user}(id), budget INT, step INT REFERENCES ${table.step}(id))`);
+		await con.query(`CREATE TABLE ${table.deal} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), customer INT REFERENCES ${table.customer}(id), executor INT REFERENCES ${table.executor}(id), responsible INT REFERENCES ${table.user}(id), budget INT, step INT REFERENCES ${table.step}(id), date DATETIME DEFAULT CURRENT_TIMESTAMP)`);
 		console.log(`${table.deal} table created`);
 
 		await con.query(`CREATE TABLE ${table.add_document} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), text VARCHAR(255), deal INT REFERENCES ${table.deal}(id))`);

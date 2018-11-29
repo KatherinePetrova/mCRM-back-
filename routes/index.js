@@ -13,10 +13,6 @@ router.use(function(req, res, next) {
  	next();
 });
 
-router.post('/', function(req, res){
-	res.send('work');
-});
-
 router.post('/api/tables', function(req, res){
 	res.send(table);
 });
@@ -24,15 +20,20 @@ router.post('/api/tables', function(req, res){
 router.post('/api/insert/:table', async function(req, res){
 	var data = req.body;
 	var table = req.params.table;
-	try{
-		var insert = await query.insert({table: table, data: data});
-		var select = await query.select({table: table, where: {id: insert.insertId}});
-		select = select[0];
-		res.send(select);
-	} catch(e){
-		res.status(500).send();
-		throw new Error(e);
+	if(table=='user'){
+		res.status(500).send('asdf')
+	} else {
+		try{
+			var insert = await query.insert({table: table, data: data});
+			var select = await query.select({table: table, where: {id: insert.insertId}});
+			select = select[0];
+			res.send(select);
+		} catch(e){
+			res.status(500).send();
+			throw new Error(e);
+		}
 	}
+	
 });
 
 router.post('/api/select/:table/:id', async function(req, res){
@@ -85,16 +86,6 @@ router.post('/api/update/:table', async function(req, res){
 	}
 });
 
-router.post('/api/delete/:table/:id', async function(req, res){
-	var table = req.params.table;
-	var id = req.params.id;
-	try{
-		var del = await query.delete({table: table, where: {id: id}});
-		res.send()
-	} catch(e){
-		res.status(500).send();
-		throw new Error(e);
-	}
-});
+
 
 module.exports = router;
