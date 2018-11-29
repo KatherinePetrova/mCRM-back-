@@ -19,10 +19,10 @@ router.post('/signup', async function(req, res, next) {
 		let salt = await bcrypt.genSalt(10);
 		data.password = await bcrypt.hashSync(data.password, salt);
 		let insert = await query.insert({table: 'user', data: data})
-		res.status(200).send('successfully logged');
+		res.status(200).send('Регистрация успешна');
 	} catch (e) {
 		console.log(e);
-		next(e)
+		next(e);
 	}
 });
 
@@ -39,15 +39,14 @@ router.post('/signin', async function(req, res, next) {
 			var bol = bcrypt.compare(data.password, select.password);
 			if(bol){
 				var token = jwt.sign({id: data.id, login: data.name}, "secret", {expiresIn: "12h"});
-				res.send(token)
+				res.send(token);
 			} else {
 				res.status(401).send()
 			}
 		}
-
 	} catch(e) {
 		console.log(e);
-		res.status(500).send()
+		res.status(500).send();
 	}
 });
 module.exports = router;
