@@ -11,7 +11,7 @@ var query = new Query(con);
 
 router.use(formidable({
 	encoding: 'utf-8',
-	uploadDir: __dirname + '/xlsx_files',
+	uploadDir: __dirname + '/../xlsx_files',
 	multiples: true,
 	keepExtensions: true
 }));
