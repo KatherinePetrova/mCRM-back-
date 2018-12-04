@@ -51,6 +51,8 @@ function dateToDate(item){
 }
 
 router.post('/insert', async function(req, res){
+
+	console.log(req.files);
 	
 	try{
 
