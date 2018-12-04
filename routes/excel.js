@@ -56,7 +56,7 @@ router.post('/insert', async function(req, res){
 	
 	try{
 
-		const workbook = xlsx.readFile(req.files.path);
+		const workbook = xlsx.readFile(req.files.data.path);
 		const sheet_name_list = workbook.SheetNames;
 		var result = xlsx.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
 
