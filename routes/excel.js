@@ -134,7 +134,7 @@ router.post('/insert', async function(req, res){
 
 			for(var key in result[i]){
 				console.log(result[i][key].includes("'"))
-				if(result[i].includes("'")){
+				if(result[i][key].includes("'")){
 					var splited = result[i][key].split("'");
 					console.log(splited)
 					splited[0] = splited[0] + "\'";
