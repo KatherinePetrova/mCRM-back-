@@ -102,7 +102,7 @@ router.post('/insert', async function(req, res){
 				step: {
 					table: table.step,
 					exists: false,
-					data: {}					}
+					data: {}
 				},
 				process: {
 					table: table.process,
