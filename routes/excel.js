@@ -14,15 +14,13 @@ var query = new Query(con);
 
 router.use(formidable({
 	encoding: 'utf-8',
-<<<<<<< HEAD
+
 	
 	keepExtensions: true
-=======
 	uploadDir: __dirname + '/../xlsx_files',
 	multiples: true,
 	keepExtensions: true,
 	limit: '50mb'
->>>>>>> f3d4ad21ed2f86d49bc7348a6323d0c156685e33
 }));
 
 async function insertOrUpdate(item, data){
