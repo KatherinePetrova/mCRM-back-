@@ -13,14 +13,11 @@ router.use(function(req, res, next) {
  	next();
 });
 
-<<<<<<< HEAD
 router.post('/', function(req, res){
 	console.log('work');
 	res.send();
 });
 
-=======
->>>>>>> f721071e10a2a8df4484061c2bfa5884a5781ab1
 router.post('/api/tables', function(req, res){
 	res.send(table);
 });
@@ -29,7 +26,7 @@ router.post('/api/insert/:table', async function(req, res){
 	var data = req.body;
 	var table = req.params.table;
 	if(table=='user'){
-		res.status(500).send('asdf')
+		res.status(401).send('asdf')
 	} else {
 		try{
 			var insert = await query.insert({table: table, data: data});
