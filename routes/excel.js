@@ -132,6 +132,11 @@ router.post('/insert', async function(req, res){
 			}
 
 			for(var key in result[i]){
+				if(result[i][key].includes("'")){
+					var splited = result[i][key].split("'");
+					splited[0] = splited[0] + "\'";
+					result[i][key] = splited.join('');
+				}
 
 				if(key == 'Название_сделки'){
 
