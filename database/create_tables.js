@@ -6,7 +6,7 @@ var util = require(`util`);
 var con = mysql.createConnection({
 	host: `localhost`,
 	user: `root`,
-	password: `Mandriva2012`,
+	//password: `Mandriva2012`,
 });
 
 con.query = util.promisify(con.query);
@@ -49,7 +49,7 @@ async function createDatabase(){
 		await con.query(`CREATE TABLE ${table.add_document} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), text VARCHAR(255), deal INT REFERENCES ${table.deal}(id))`);
 		console.log(`${table.add_document} table created`);
 
-		await con.query(`CREATE TABLE ${table.config} (value VARCHAR(255))`);
+		await con.query(`CREATE TABLE ${table.config} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHER(255), value VARCHAR(255))`);
 		console.log(`${table.config} table created`);
 
 		for(key in table){

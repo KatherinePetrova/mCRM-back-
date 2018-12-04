@@ -14,8 +14,7 @@ var query = new Query(con);
 
 router.use(formidable({
 	encoding: 'utf-8',
-	uploadDir: __dirname + '/../xlsx_files',
-	multiples: true,
+	
 	keepExtensions: true
 }));
 
@@ -34,7 +33,7 @@ async function insertOrUpdate(item, data){
 	return single;
 }
 
-function dateToDate(item){
+async function dateToDate(item){
 	var fSplit = item.split(' ');
 	var date = fSplit[0].split('.');
 	var time = fSplit[1].split(':');
@@ -268,7 +267,7 @@ router.post('/insert', async function(req, res){
 		res.send();
 
 	} catch(e){
-		res.status(500).send();
+		res.status(500).send(e);
 		throw new Error(e);
 	}
 });
