@@ -10,7 +10,7 @@ var excelRouter = require('./routes/excel');
 var app = express();
 
 app.use(logger('dev'));
-app.use(express.json({ extended: true, limitL '100mb' }));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
