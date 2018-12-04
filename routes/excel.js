@@ -16,7 +16,8 @@ router.use(formidable({
 	encoding: 'utf-8',
 	uploadDir: __dirname + '/../xlsx_files',
 	multiples: true,
-	keepExtensions: true
+	keepExtensions: true,
+	limit: '50mb'
 }));
 
 async function insertOrUpdate(item, data){
