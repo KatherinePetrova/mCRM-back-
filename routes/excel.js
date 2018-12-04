@@ -88,17 +88,21 @@ router.post('/insert', async function(req, res){
 				executor: {
 					table: table.executor,
 					exists: false,
-					data: {}
+					data: {
+						id: 1
+					}
 				},
 				customer: {
 					table: table.customer,
 					exists: false,
-					data: {}
+					data: {
+						id: 1
+					}
 				},
 				step: {
 					table: table.step,
 					exists: false,
-					data: {}
+					data: {}					}
 				},
 				process: {
 					table: table.process,
