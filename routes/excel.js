@@ -14,8 +14,15 @@ var query = new Query(con);
 
 router.use(formidable({
 	encoding: 'utf-8',
+<<<<<<< HEAD
 	
 	keepExtensions: true
+=======
+	uploadDir: __dirname + '/../xlsx_files',
+	multiples: true,
+	keepExtensions: true,
+	limit: '50mb'
+>>>>>>> f3d4ad21ed2f86d49bc7348a6323d0c156685e33
 }));
 
 async function insertOrUpdate(item, data){
@@ -50,10 +57,10 @@ async function dateToDate(item){
 }
 
 router.post('/insert', async function(req, res){
-	
+
 	try{
 
-		const workbook = xlsx.readFile(req.files[''].path);
+		const workbook = xlsx.readFile(req.files.data.path);
 		const sheet_name_list = workbook.SheetNames;
 		var result = xlsx.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
 
@@ -73,6 +80,7 @@ router.post('/insert', async function(req, res){
 				resultat = splited.join('');
 				return resultat;
 			});
+
 		}
 
 		var count = 0;
@@ -87,12 +95,16 @@ router.post('/insert', async function(req, res){
 				executor: {
 					table: table.executor,
 					exists: false,
-					data: {}
+					data: {
+						id: 0
+					}
 				},
 				customer: {
 					table: table.customer,
 					exists: false,
-					data: {}
+					data: {
+						id: 0
+					}
 				},
 				step: {
 					table: table.step,
@@ -127,6 +139,17 @@ router.post('/insert', async function(req, res){
 			}
 
 			for(var key in result[i]){
+				console.log(result[i][key]);
+				console.log(typeof result[i][key]);
+				if(typeof result[i][key] == 'string'){
+					if(result[i][key].includes("'")){
+						var splited = result[i][key].split("'");
+						console.log(splited)
+						splited[0] = splited[0] + "\\'";
+						result[i][key] = splited.join('');
+						console.log(result[i][key])
+					}
+				}
 
 				if(key == 'Название_сделки'){
 
@@ -272,9 +295,5 @@ router.post('/insert', async function(req, res){
 	}
 });
 
-router.post('/test', function(req, res){
-	console.log(parseInt('04'));
-	res.send();
-});
 
 module.exports=router;
