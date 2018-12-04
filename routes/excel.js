@@ -74,6 +74,7 @@ router.post('/insert', async function(req, res){
 				resultat = splited.join('');
 				return resultat;
 			});
+
 		}
 
 		var count = 0;
@@ -132,12 +133,13 @@ router.post('/insert', async function(req, res){
 			}
 
 			for(var key in result[i]){
-				console.log(result[i][key])
-				if(result[i][key].includes("'")){
+				console.log(result[i][key].includes("'"))
+				if(result[i].includes("'")){
 					var splited = result[i][key].split("'");
+					console.log(splited)
 					splited[0] = splited[0] + "\'";
 					result[i][key] = splited.join('');
-					console.log(result[i][key]);
+					console.log(result[i][key])
 				}
 
 				if(key == 'Название_сделки'){
