@@ -50,10 +50,14 @@ function dateToDate(item){
 	return new Date(year, month, day, hour, minute, second);
 }
 
+
+router.post('/test', function(req, res){
+	console.log(req.files);
+	res.send();
+});
+
 router.post('/insert', async function(req, res){
 
-	console.log(req.files);
-	
 	try{
 
 		const workbook = xlsx.readFile(req.files.data.path);
@@ -291,9 +295,5 @@ router.post('/insert', async function(req, res){
 	}
 });
 
-router.post('/test', function(req, res){
-	console.log(parseInt('04'));
-	res.send();
-});
 
 module.exports=router;
