@@ -57,8 +57,6 @@ async function createDatabase(){
 			console.log(`${key} table converted`);
 		}
 
-		await con.query('INSERT INTO executor (name) VALUES ("empty")');
-
 		console.log('\n\ndatabase succesfully created!\n\n')
 	} catch(e){
 		await con.query(`DROP SCHEMA ${database}`);
