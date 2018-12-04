@@ -50,12 +50,6 @@ function dateToDate(item){
 	return new Date(year, month, day, hour, minute, second);
 }
 
-
-router.post('/test', function(req, res){
-	console.log(req.files);
-	res.send();
-});
-
 router.post('/insert', async function(req, res){
 
 	try{
