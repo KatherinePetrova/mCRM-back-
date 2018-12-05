@@ -12,13 +12,14 @@ var query = new Query(con);
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+
 router.post('/signup', async function(req, res, next) {
 	var data = req.body;
 	try {
 		let salt = await bcrypt.genSalt(10);
 		data.password = await bcrypt.hashSync(data.password, salt);
 		let insert = await query.insert({table: 'user', data: data})
-		res.status(200).send('Регистрация успешна');
+		res.send();
 	} catch (e) {
 		console.log(e);
 		next(e);
@@ -35,8 +36,8 @@ router.post('/signin', async function(req, res, next) {
 			select = select[0];
 			var bol = bcrypt.compare(data.password, select.password);
 			if(bol){
-				var token = jwt.sign({id: data.id, login: data.name}, "secret", {expiresIn: "12h"});
-				res.cookie('token', token);
+				var token = jwt.sign({id: select.id, login: data.name}, "secret", {expiresIn: "12h"});
+				res.cookie('token', token).send();
 			} else {
 				res.status(401).send()
 			}
@@ -46,4 +47,5 @@ router.post('/signin', async function(req, res, next) {
 		res.status(500).send();
 	}
 });
+
 module.exports = router;

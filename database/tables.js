@@ -9,7 +9,6 @@ module.exports = {
 	add_user: `add_user`,
 	deal: `deal`,
 	add_document: `add_document`,
-	add_document: `add_document`,
 	config: `config`
 
 };
