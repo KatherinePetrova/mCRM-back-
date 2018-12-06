@@ -87,8 +87,9 @@ router.post('/api/select/:table/:id', async function(req, res){
 	}
 });
 
-router.post('/api/where/:table', async function(req, res){
+router.post('/api/where/:table/:from', async function(req, res){
 	var table = req.params.table;
+	var from = req.params.from;
 	var where = req.body;
 	try{
 		await jwt.verify(req.cookies.token, secret, function(err, decoded){
@@ -96,7 +97,7 @@ router.post('/api/where/:table', async function(req, res){
 				res.status(401).send();
 			}
 		});
-		var select = await query.select({table: table, where: where});
+		var select = await query.select({table: table, where: where, limit: {from: from, number: 10}});
 		res.send(select);
 	} catch(e){
 		res.status(500).send(e);
