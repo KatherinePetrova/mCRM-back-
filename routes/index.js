@@ -10,6 +10,11 @@ var query = new Query(con);
 
 var secret = "secret";
 
+router.post('/test', async function(req, res){
+	var select = await query.select({table: 'deal', limit: {from: 5, number: 5}});
+	res.send(select)
+});
+
 router.post('/', function(req, res){
 	console.log('work');
 	res.send();
@@ -83,9 +88,8 @@ router.post('/api/select/:table/:id', async function(req, res){
 });
 
 router.post('/api/where/:table', async function(req, res){
-	console.log(req.cookies)
 	var table = req.params.table;
-	var where = req.body.data;
+	var where = req.body;
 	try{
 		await jwt.verify(req.cookies.token, secret, function(err, decoded){
 			if(err){
