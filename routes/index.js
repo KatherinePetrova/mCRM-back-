@@ -37,6 +37,11 @@ router.post('/api/tables', async function(req, res){
 router.post('/api/insert/:table', async function(req, res){
 	var data = req.body
 	var table = req.params.table;
+	for(var key in data){
+		if(key=='changed' || key=='created'){
+			data[key] = new Date();
+		}
+	}
 	if(table=='user'){
 		res.status(401).send()
 	 } else {
@@ -44,6 +49,8 @@ router.post('/api/insert/:table', async function(req, res){
 			await jwt.verify(req.cookies.token, secret, function(err, decoded){
 				if(err){
 					res.status(401).send();
+				} else {
+					console.log(decoded);
 				}
 			});
 			var insert = await query.insert({table: table, data: data});
