@@ -50,7 +50,9 @@ router.post('/api/insert/:table', async function(req, res){
 				if(err){
 					res.status(401).send();
 				} else {
-					console.log(decoded);
+					if(table=='deal'){
+						data.responsible = decoded.id;
+					}
 				}
 			});
 			var insert = await query.insert({table: table, data: data});
