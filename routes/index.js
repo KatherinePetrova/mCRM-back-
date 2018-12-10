@@ -108,7 +108,7 @@ router.post('/api/update/:table', async function(req, res){
 	var table = req.params.table;
 	var data = req.body;
 	for(var key in data){
-		if(key=='changed'){
+		if(key=='changed' || key=='created'){
 			data[key] = new Date();
 		}
 	}
@@ -116,6 +116,8 @@ router.post('/api/update/:table', async function(req, res){
 		await jwt.verify(req.cookies.token, secret, function(err, decoded){
 			if(err){
 				res.status(401).send();
+			} else {
+				console.log(decoded);
 			}
 
 		});

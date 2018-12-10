@@ -61,3 +61,7 @@ typings/
 .next
 
 xlsx_files/*
+
+database/connection.js
+
+package-lock.json
