@@ -113,6 +113,39 @@ router.post('/api/where/:table/:from', async function(req, res){
 	}
 });
 
+router.post('/api/like/:table', async function(req, res){
+	var table = req.params.table;
+	var like = req.body.like;
+	try{
+		await jwt.verify(req.cookies.token, secret, function(err, decoded){
+		 	if(err){
+		 		res.status(401).send();
+			}
+		});
+		var sql = `SELECT * FROM ${table} WHERE `;
+		var count = false;
+		var pre_select = await query.select({table: table, where: {id: 1}});
+		pre_select = pre_select[0];
+		for(var key in pre_select){
+			if(key=='created' || key=='changed' || key=='finished'){
+
+			} else {
+				if(!count){
+					sql = sql + `${key} LIKE '%${like}%'`;
+					count = true;
+				} else {
+					sql = sql + ` OR ${key} LIKE '%${like}%'`;
+				}
+			}
+		}
+		sql = sql + ' LIMIT 0, 10';
+		var select = await con.query(sql)
+		res.send(select);
+	} catch(e){
+		res.status(500).send(e);
+	}
+});
+
 router.post('/api/update/:table', async function(req, res){
 	var table = req.params.table;
 	var data = req.body;

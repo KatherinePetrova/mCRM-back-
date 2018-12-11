@@ -34,9 +34,9 @@ router.post('/signin', async function(req, res, next) {
 			res.status(401).send()
 		} else {
 			select = select[0];
-			var bol = bcrypt.compare(data.password, select.password);
+			var bol = await bcrypt.compare(data.password, select.password);
 			if(bol){
-				var token = jwt.sign({id: select.id, login: data.name}, "secret", {expiresIn: "12h"});
+				var token = await jwt.sign({id: select.id, login: data.name}, "secret", {expiresIn: "12h"});
 				res.cookie('token', token).send();
 			} else {
 				res.status(401).send()
