@@ -48,4 +48,8 @@ router.post('/signin', async function(req, res, next) {
 	}
 });
 
+router.post('/exit', function (req, res){
+	res.cookie('token', '').send();
+});
+
 module.exports = router;
