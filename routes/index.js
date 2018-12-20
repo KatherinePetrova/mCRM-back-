@@ -154,20 +154,48 @@ router.post('/api/update/:table', async function(req, res){
 	var table = req.params.table;
 	var data = req.body;
 	for(var key in data){
-		if(key=='changed' || key=='created'){
-			data[key] = new Date();
+		if(key == 'created' || key == "changed" || key == 'finished'){
+			delete data[key]
 		}
 	}
+	var user = {};
 	try{
 		await jwt.verify(req.cookies.token, secret, function(err, decoded){
 			if(err){
 				res.status(401).send();
 			} else {
-				console.log(decoded);
+				user.id = decoded.id;
+				user.name = decoded.name;
 			}
 
 		});
-		var update = await query.update({table: table, where: {id: data.id}, data: data});
+		if(table=='deal' || table=='add_document'){
+			var select = await query.select({table: table, where: {id: data.id}});
+			select = select[0];
+
+			var changy = {};
+
+			for(var key in select){
+				if(key == 'created' || key == "changed" || key == 'finished'){
+					delete data[key]
+				}
+			}
+			for(var key in data){
+				if(data[key]!=select[key]){
+					changy.name = key;
+					changy.previousval = select[key];
+					changy.newval = data[key];
+					changy.responsible = user.id;
+					changy.deal = data.id;
+					var insert = await query.insert({table: 'changy', data: changy});
+				}
+			}
+			data.changed = new Date();
+			var update = await query.update({table: table, where: {id: data.id}, data: data});
+		} else {
+			var update = await query.update({table: table, where: {id: data.id}, data: data});
+		}
+		
 		res.send();
 	} catch(e){
 		res.status(500).send();
