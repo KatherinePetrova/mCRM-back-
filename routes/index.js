@@ -106,7 +106,11 @@ router.post('/api/where/:table/:from', async function(req, res){
 				res.status(401).send();
 			}
 		});
-		var select = await query.select({table: table, where: where, limit: {from: from, number: 10}});
+		if(table=='deal'){
+			var select = await query.select({table: table, where: where, limit: {from: from, number: 10}, orderby: 'changed'});
+		} else {
+			var select = await query.select({table: table, where: where, limit: {from: from, number: 10}});
+		}	
 		res.send(select);
 	} catch(e){
 		res.status(500).send(e);
