@@ -6,7 +6,7 @@ var util = require(`util`);
 var con = mysql.createConnection({
 	host: `localhost`,
 	user: `root`,
-	//password: `Mandriva2012`,
+	password: `Mandriva2012`,
 });
 
 con.query = util.promisify(con.query);
