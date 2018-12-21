@@ -6,7 +6,7 @@ var util = require(`util`);
 var con = mysql.createConnection({
 	host: `localhost`,
 	user: `root`,
-	password: `Mandriva2012`,
+	//password: `Mandriva2012`,
 });
 
 con.query = util.promisify(con.query);
@@ -49,8 +49,23 @@ async function createDatabase(){
 		await con.query(`CREATE TABLE ${table.add_document} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), text VARCHAR(255), deal INT REFERENCES ${table.deal}(id))`);
 		console.log(`${table.add_document} table created`);
 
-		await con.query(`CREATE TABLE ${table.config} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHER(255), value VARCHAR(255))`);
+		await con.query(`CREATE TABLE ${table.config} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), value VARCHAR(255))`);
 		console.log(`${table.config} table created`);
+
+		await con.query(`CREATE TABLE ${table.changy} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), previousval VARCHAR(255), newval VARCHAR(255), created DATETIME DEFAULT CURRENT_TIMESTAMP, deal INT REFERENCES deal(id), responsible INT REFERENCES user(id))`);
+		console.log(`${table.changy} table created`);
+
+		await con.query(`CREATE TABLE ${table.tab} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), deal INT REFERENCES deal(id), process INT REFERENCES process(id))`);
+		console.log(`${table.tab} table created`);
+
+		await con.query(`CREATE TABLE ${table.comment} (id INT AUTO_INCREMENT PRIMARY KEY, text VARCHAR(255), created DATETIME DEFAULT CURRENT_TIMESTAMP, deal INT REFERENCES deal(id), responsible INT REFERENCES user(id))`);
+		console.log(`${table.comment} table created`);
+
+		await con.query(`ALTER TABLE ${table.add_document} ADD tab INT REFERENCES tab(id)`);
+		console.log(`${table.add_document} table changed`);
+
+		await con.query(`ALTER TABLE ${table.step} ADD undealed BOOLEAN`);
+		console.log(`${table.step} table changed`);
 
 		for(key in table){
 			await con.query(`ALTER TABLE ${table[key]} CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci`);
