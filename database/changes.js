@@ -15,8 +15,10 @@ con.query = util.promisify(con.query);
 
 async function changeStructure(){
 	try{
-		await con.query(`CREATE TABLE ${table.cally} (id INT AUTO_INCREMENT PRIMARY KEY, typey VARCHAR(255), linky VARCHAR(255), fromytoy VARCHAR(255), created DATETIME DEFAULT CURRENT_TIMESTAMP, deal INT REFERENCES ${table.deal}(id))`);
-		console.log(`${table.cally} table created`)
+		await con.query(`ALTER TABLE ${table.step} ADD undealed BOOLEAN`);
+		console.log(`${table.step} table changed`);
+
+		
 	} catch(e){
 		throw new Error(e);
 		console.log(e);

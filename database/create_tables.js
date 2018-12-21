@@ -61,6 +61,9 @@ async function createDatabase(){
 		await con.query(`CREATE TABLE ${table.comment} (id INT AUTO_INCREMENT PRIMARY KEY, text VARCHAR(255), created DATETIME DEFAULT CURRENT_TIMESTAMP, deal INT REFERENCES deal(id), responsible INT REFERENCES user(id))`);
 		console.log(`${table.comment} table created`);
 
+		await con.query(`CREATE TABLE ${table.cally} (id INT AUTO_INCREMENT PRIMARY KEY, typey VARCHAR(255), linky VARCHAR(255), fromytoy VARCHAR(255), created DATETIME DEFAULT CURRENT_TIMESTAMP, deal INT REFERENCES ${table.deal}(id))`);
+		console.log(`${table.cally} table created`);
+
 		await con.query(`ALTER TABLE ${table.add_document} ADD tab INT REFERENCES tab(id)`);
 		console.log(`${table.add_document} table changed`);
 
