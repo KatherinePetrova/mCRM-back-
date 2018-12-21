@@ -15,7 +15,7 @@ con.query = util.promisify(con.query);
 
 async function changeStructure(){
 	try{
-		await con.query(`ALTER TABLE ${table.step} ADD undealed BOOLEAN`);
+		await con.query(`ALTER TABLE ${table.step} ADD successy BOOLEAN`);
 		console.log(`${table.step} table changed`);
 
 		

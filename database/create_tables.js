@@ -70,6 +70,8 @@ async function createDatabase(){
 		await con.query(`ALTER TABLE ${table.step} ADD undealed BOOLEAN`);
 		console.log(`${table.step} table changed`);
 
+		
+
 		for(key in table){
 			await con.query(`ALTER TABLE ${table[key]} CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci`);
 			console.log(`${key} table converted`);
