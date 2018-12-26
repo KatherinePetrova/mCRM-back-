@@ -12,6 +12,7 @@ module.exports = {
 	config: `config`,
 	tab: 'tab',
 	changy: 'changy',
-	comment: 'comment'
+	comment: 'comment',
+	cally: 'cally'
 
 };
