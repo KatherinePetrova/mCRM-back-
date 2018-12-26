@@ -43,14 +43,14 @@ router.post('/api/insert/:table', async function(req, res){
 		}
 	}
 	if(table=='user'){
-		res.status(401).send()
+		res.status(401).send();
 	 } else {
 		try{
 			await jwt.verify(req.cookies.token, secret, function(err, decoded){
 				if(err){
 					res.status(401).send();
 				} else {
-					if(table=='deal'){
+					if(table=='deal' || table=='comment' || table=='changy'){
 						data.responsible = decoded.id;
 					}
 				}
@@ -64,14 +64,14 @@ router.post('/api/insert/:table', async function(req, res){
 			throw new Error(e);
 		}
 	}
-	
+
 });
 
 router.post('/api/select/:table/:id', async function(req, res){
 	var table = req.params.table;
 	var id = req.params.id;
 	await jwt.verify(req.cookies.token, secret, function(err, decoded){
-		if(err){			
+		if(err){
 			res.status(401).send();
 		}
 	});	
